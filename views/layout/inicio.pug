@@ -2,9 +2,190 @@ doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", href="/css/app.css")
-        title Document
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Inicio 
+        link(rel="stylesheet" href="/css/app.css")
+        link(rel="stylesheet" href="/css/menu.css")
+        link(rel='preconnect' href='https://fonts.gstatic.com')
+        link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap' rel='stylesheet')
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet')
+        link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+        link(rel="shortcut icon" href="/img/parquimetro.png" type="image/x-icon")
     body 
 
-        h1 hola papu
+        nav.bg-neutral-50
+            div.max-w-screen-xl.flex.flex-wrap.items-center.justify-between.mx-auto.p-4
+                a.flex.items-center(href='#')
+                    img.h-8.mr-3(src='/img/seguro.png' alt='')
+                    span.self-center.text-2xl.font-semibold.whitespace-nowrap(class='dark:text-white') Xico Park
+                button.inline-flex.items-center.p-2.ml-3.text-sm.text-gray-500.rounded-lg(data-collapse-toggle='navbar-dropdown' type='button' class='md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600' aria-controls='navbar-dropdown' aria-expanded='false')
+                    span.sr-only Open main menu
+                    svg.w-6.h-6(aria-hidden='true' fill='currentColor' viewbox='0 0 20 20' xmlns='http://www.w3.org/2000/svg')
+                        path(fill-rule='evenodd' d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z' clip-rule='evenodd')
+                #navbar-dropdown.hidden.w-full.bg-neutral-200(class='md:block md:w-auto')
+                    ul.flex.flex-col.font-medium.p-4.mt-4.border.border-gray-100.rounded-lg.bg-gray-50(class='md:p-0 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-slate-200 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700')
+                        li
+                            a.block.py-2.pl-3.pr-4.text-white.bg-blue-700.rounded(href='/login' class=' md:bg-transparent md:text-slate-700 md:p-0 md:dark:text-slate-500 dark:bg-slate-600 md:dark:bg-transparent' aria-current='page') Inicia Sesion
+                        li
+                            a.block.py-2.pl-3.pr-4.text-gray-900.rounded(href='/register' class='hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent') Registrate
+                        li
+                            a.block.py-2.pl-3.pr-4.text-gray-900.rounded(href='#' class='hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent') Privacidad 
+                        li
+                            a.block.py-2.pl-3.pr-4.text-gray-900.rounded(href='#' class='hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent') Contactanos 
+
+
+        .relative.isolate.overflow-hidden.bg-gray-900.py-24(class='sm:py-32')
+            img.absolute.inset-0.-z-10.h-full.w-full.object-cover.object-right(src='/img/turismo2.jpg' alt='' class='md:object-center')
+            .hidden(class='sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl' aria-hidden='true')
+                .bg-gradient-to-tr.opacity-20(class='aspect-[1097/845] w-[68.5625rem] from-[#ff4694] to-[#776fff]' style='clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)')
+            .absolute.-top-52.-z-10.transform-gpu.blur-3xl(class='left-1/2 -translate-x-1/2 sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu' aria-hidden='true')
+                .bg-gradient-to-tr.opacity-20(class='aspect-[1097/845] w-[68.5625rem] from-[#ff4694] to-[#776fff]' style='clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)')
+            .mx-auto.max-w-7xl.px-6(class='lg:px-8 ')
+                .mx-auto.max-w-2xl(class='lg:mx-0 ')
+                    img.h-14(src='/img/seguro.png', alt='Auto')
+                    span.text-4xl.font-bold.tracking-tight.text-white(class='sm:text-6xl') Xico Park
+                    p.mt-6.text-lg.leading-8.text-gray-300
+                        | Uno de los servicios más utilizados se actualiza de manera digital, esto para poder 
+                        | ser pagado de manera electronica 
+                .mx-auto.mt-10.max-w-2xl(class='lg:mx-0 lg:max-w-none')
+                    .grid.grid-cols-1.gap-x-8.gap-y-6.text-base.font-semibold.leading-7.text-white.m-3(class='sm:grid-cols-2 md:flex lg:gap-x-10')
+                        a(href='#')
+                            | Rapido
+                            span(aria-hidden='true') &rarr;
+                        a(href='#')
+                            | Seguro
+                            span(aria-hidden='true') &rarr;
+                        a(href='#')
+                            | Sencillo
+                            span(aria-hidden='true') &rarr;
+                    dl.mt-16.grid.grid-cols-1.gap-8(class='sm:mt-20 sm:grid-cols-2 lg:grid-cols-4')
+                        .flex.flex-col-reverse
+                            dt.text-base.leading-7.text-gray-300 El tiempo de tolerancia son 10 minutos 
+                            dd.text-2xl.font-bold.leading-9.tracking-tight.text-white Recuerda
+
+        //- component
+        section.relative.z-20.overflow-hidden.bg-neutral-200.pt-20.pb-12(class='lg:pt-[120px] lg:pb-[90px]')
+            .container.mx-auto
+                .-mx-4.flex.flex-wrap.border-primary.shadow-pricing.border.border-opacity
+                    .w-full.px-4
+                        .mx-auto.text-center(class='mb-[60px] max-w-[510px] lg:mb-20')
+                            span.text-primary.mb-2.block.text-xl.font-bold
+                                | Xico - Park
+                            h2.text-dark.mb-4.text-2xl.font-bold(class='sm:text-4xl md:text-[40px]')
+                                | Paga de manera más facil tu parquimetro
+                            p.text-body-color.text-base
+                                | Ahora puedes pagar tu parquimetro de manera digital
+                                | de forma rapida, segura y facil.
+                .-mx-4.flex.flex-wrap.justify-center
+                    .w-full.px-4(class='md:w-1/2 lg:w-1/3 ')
+                        .border-primary.shadow-pricing.relative.z-10.mb-10.overflow-hidden.rounded-3xl.border.border-opacity-20.bg-white.py-10.px-8(class='sm:p-12 lg:py-10 lg:px-6 xl:p-12 shadow hover:shadow-2xl')
+                            span.text-primary.mb-4.block.text-xl.font-bold
+                                | Tarifa más baja
+                            h2.text-dark.mb-5.font-bold(class='text-[42px]')
+                                | $5
+                                span.text-body-color.text-base.font-medium  / mxn
+                            p.text-body-color.mb-8.border-b.pb-8.text-base(class='border-[#F2F2F2]')
+                                | Te brinda 1 hora de estacionamiento
+                            a.text-primary.block.w-full.rounded-3xl.border.bg-indigo-100.p-4.text-center.text-base.font-semibold.transition(href='/pagos' class='hover:bg-indigo-500 hover:text-white ')
+                                | Pagar
+
+                    .w-full.px-4(class='md:w-1/2 lg:w-1/3 ')
+                        .border-primary.relative.z-10.mb-10.overflow-hidden.rounded-3xl.border.border-opacity-20.bg-white.py-10.px-8(class='sm:p-12 lg:py-10 lg:px-6 xl:p-12 shadow hover:shadow-2xl')
+                            span.text-primary.mb-4.block.text-lg.font-semibold
+                                | Tarifa intermedia
+                            h2.text-dark.mb-5.font-bold(class='text-[42px]')
+                                | $10
+                                span.text-body-color.text-base.font-medium  / mxn
+                            p.text-body-color.mb-8.border-b.pb-8.text-base(class='border-[#F2F2F2]')
+                                | Te brinda 2 horas de estacionamiento
+                            a.text-primary.block.w-full.rounded-3xl.border.bg-indigo-100.p-4.text-center.text-base.font-semibold.transition.cursor-pointer(href='/pagos' class='hover:bg-indigo-500 hover:text-white')
+                                | pagar
+
+                    .w-full.px-4(class='md:w-1/2 lg:w-1/3')
+                        .border-primary.shadow-pricing.relative.z-10.mb-10.overflow-hidden.rounded-3xl.border.border-opacity-20.bg-white.py-10.px-8(class='sm:p-12 lg:py-10 lg:px-6 xl:p-12 shadow hover:shadow-2xl')
+                            span.text-primary.mb-4.block.text-lg.font-semibold
+                                | Tarifa más alta
+                            h2.text-dark.mb-5.font-bold(class='text-[42px]')
+                                | $20
+                                span.text-body-color.text-base.font-medium  / mxn
+                            p.text-body-color.mb-8.border-b.pb-8.text-base(class='border-[#F2F2F2]')
+                                | Te brinda 4 horas de estacionamiento
+                            a.text-primary.block.w-full.rounded-3xl.border.bg-indigo-100.p-4.text-center.text-base.font-semibold.transition(href='/pagos' class='hover:bg-indigo-500 hover:text-white')
+                                | Pagar
+
+        section.relative.isolate.overflow-hidden.bg-white.px-6.py-20.rounded-2xl.-mx-4.flex.flex-wrap.justify-center(class='sm:py-28 lg:px-8')
+            .absolute.inset-0.-z-10.opacity-20(class='bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)]')
+            .absolute.inset-y-0.-z-10.mr-12.origin-bottom-left.bg-white.shadow-xl.ring-1.ring-indigo-50(class='right-1/2 w-[200%] skew-x-[-30deg] shadow-indigo-600/10 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center')
+            .w-full.px-4(class='md:w-1/2 lg:w-1/2')
+                #mapa.h-96.rounded.3xl(class='shadow hover:shadow-xl')
+            .w-full.px-4(class='md:w-1/2 lg:w-1/2')
+                .border-primary.shadow-pricing.relative.z-10.mb-10.overflow-hidden.rounded-3xl.border.border-opacity-20.bg-white.py-10.px-8(class='sm:p-12 lg:py-10 lg:px-6 xl:p-12 shadow hover:shadow-2xl')
+                    h2.text-3xl.text-center.font-bold Busca tu lugar en el mapa
+                    img.h-48.w-48(src='img/perdio.png', alt="Perdido" class='mx-auto my-auto p-2')
+                    p.text-base.text-medium.mt-6.text-center.font-bold Tienes problemas al encontrar tu lugar 
+                    p.text-base.text-medium.text-center Si crees que no tienes que pagar el parquimetro revisa el mapa 
+                
+
+        div.bg-slate-200.rounded.3xl
+            .mx-auto.grid.max-w-2xl.grid-cols-1.items-center.gap-x-8.gap-y-16.px-4.py-24(class='sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8')
+                div
+                    h2.text-3xl.font-bold.tracking-tight.text-gray-900(class='sm:text-4xl') ¿Como utilizar Xico-Park?
+                    p.mt-4.text-gray-500
+                        | La manera más facil de pagar el parquimetro en Xicotepec 
+                    dl.mt-16.grid.grid-cols-1.gap-x-6.gap-y-10(class='sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8')
+                        .border-t.border-gray-200.pt-4
+                            dt.text-lg.font-bold.text-gray-900 Desde la app 
+                            dt.font-medium.text-gray-900 Descarga la aplicacion en la Google Play Store
+                        .border-t.border-gray-200.pt-4
+                            dt.text-lg.font-bold.text-gray-900 Desde el sito web
+                            dt.font-medium.text-gray-900 Accede al sitio web www.xicopark.gob
+                            dd.mt-2.text-sm.text-gray-500 Y seleciona una de las targetas de pago
+                        .border-t.border-gray-200.pt-4
+                            dt.font-medium.text-gray-900 Registrate 
+                            dd.mt-2.text-sm.text-gray-500 Llenando con tus datos 
+                        .border-t.border-gray-200.pt-4
+                            dt.font-medium.text-gray-900 LLena el formulario 
+                            dd.mt-2.text-sm.text-gray-500 Con tus datos y placas de auto 
+                        .border-t.border-gray-200.pt-4
+                            dt.font-medium.text-gray-900 Paga y listo
+                            dd.mt-2.text-sm.text-gray-500 Es más facil y sencillo que nunca pagar 
+                        .border-t.border-gray-200.pt-4
+                            dt.font-medium.text-gray-900 Paga de manera rapida y segura 
+                            dd.mt-2.text-sm.text-gray-500 La forma más rapida de pagar y facil. 
+                .grid.grid-cols-2.grid-rows-2.gap-4(class='sm:gap-6 lg:gap-8')
+                    img.rounded-lg.bg-gray-100(src='https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-01.jpg' alt='Walnut card tray with white powder coated steel divider and 3 punchout holes.' class='shadow hover:shadow-xl')
+                    img.rounded-lg.bg-gray-100(src='https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg' alt='Top down view of walnut card tray with embedded magnets and card groove.' class='shadow hover:shadow-xl')
+                    img.rounded-lg.bg-gray-100(src='https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg' alt='Side of walnut card tray with card groove and recessed card area.' class='shadow hover:shadow-xl')
+                    img.rounded-lg.bg-gray-100(src='https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg' alt='Walnut card tray filled with cards and card angled in dedicated groove.' class='shadow hover:shadow-xl')
+
+
+        //- Footer 
+        footer.bg-white.rounded-lg.shadow.m-4(class='dark:bg-gray-900')
+            div.w-full.max-w-screen-xl.mx-auto.p-4(class='md:py-8')
+                div(class='sm:flex sm:items-center sm:justify-between')
+                    a.flex.items-center.mb-4(href='https://flowbite.com/' class='sm:mb-0')
+                        //- img.h-8.mr-3(src='https://flowbite.com/docs/images/logo.svg' alt='Flowbite Logo')
+                        span.self-center.text-2xl.font-semibold.whitespace-nowrap(class='dark:text-white') Xicotepec 
+                    ul.flex.flex-wrap.items-center.mb-6.text-sm.font-medium.text-gray-500(class='sm:mb-0 dark:text-gray-400')
+                        li
+                            a.mr-4(href='#' class='hover:underline md:mr-6') Acerca de
+                        li
+                            a.mr-4(href='#' class='hover:underline md:mr-6') Politica de Privacidad 
+                        li
+                            a.mr-4(href='#' class='hover:underline md:mr-6') Contactanos 
+                hr.my-6.border-gray-200(class='sm:mx-auto dark:border-gray-700 lg:my-8')
+                span.block.text-sm.text-gray-500.mt-4(class='sm:text-center dark:text-gray-400')
+                    | &copy; 2023 
+                    a(href='https://www.gob.mx/sectur/articulos/xicotepec-de-juarez-puebla' class='hover:underline') Ayuntamiento de Xicotepec 
+                    | . Todos los derechos reservados . 
+
+
+
+block scripts 
+    script(src="/js/animations.js") 
+    script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+    script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js")
+    script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js")
+    script(src="/js/mapa.js") 

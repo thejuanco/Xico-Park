@@ -1,4 +1,7 @@
 #Carpeta de node modules 
 node_modules 
 
+#Ignorando las imagenes de la carpeta publica 
+public/img
+
 #Variables de entorno 
