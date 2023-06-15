@@ -11,35 +11,33 @@ html(lang="en")
             .p-10.mx-auto.rounded-3xl(class='xs:p-0 md:w-full md:max-w-md')
                 h1.font-bold.text-center.text-2xl.mb-5.text-white Xico - Park 
                 div.bg-white.shadow.w-full.rounded-3xl.divide-y.divide-gray-200
-                    .px-5.py-7
+                    form.px-5.py-7(method='POST' action='/register' noValidate)
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Nombre
-                        input.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='text' placeholder='Juan')
+                        input#nombre.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='text' placeholder='Juan' name='nombre')
                         .flex-row.w-full.text-xs(class='md:flex md:space-x-4')
                             .mb-3.space-y-2.w-full.text-xs
                                 label.font-semibold.text-gray-600.py-2
                                     | Apellido Paterno
-                                input#integration_shop_name.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Cruz' required='required' type='text' name='integration[shop_name]')
+                                input#a_paterno.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Cruz' type='text' name='a_paterno')
                             .mb-3.space-y-2.w-full.text-xs
                                 label.font-semibold.text-gray-600.py-2
                                     | Apellido Materno
-                                input#integration_shop_name.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Ortiz' required='required' type='text' name='integration[shop_name]')
+                                input#a_materno.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Ortiz' type='text' name='a_materno')
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Correo Electronico 
-                        input.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='text' placeholder='correo@gmail.com')
+                        input#correo.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full( placeholder='correo@gmail.com' name='correo' type='email')
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Contraseña
-                        input.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='text' placeholder='********')
+                        input#password.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='password' placeholder='********' name='password')
                         .flex-row.w-full.text-xs(class='md:flex md:space-x-4')
                             .mb-3.space-y-2.w-full.text-xs
                                 label.font-semibold.text-gray-600.py-2
                                     | Tus Placas
-                                input#integration_shop_name.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Cruz' required='required' type='text' name='integration[shop_name]')
+                                input#placas.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='QAZ-12-34' required='required' type='text' name='placas')
                             .mb-3.space-y-2.w-full.text-xs
                                 label.font-semibold.text-gray-600.py-2
                                     | Tu Telefono
-                                input#integration_shop_name.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='Ortiz' required='required' type='text' name='integration[shop_name]')
-                        a.transition.duration-200.bg-indigo-100.w-full.rounded-3xl.text-sm.shadow-sm.font-semibold.text-center.inline-block(type='button' class='hover:text-white hover:bg-indigo-500 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 py-2.5 hover:shadow-md')
-                            span.inline-block.mr-2 Registrate 
-                            svg.w-4.h-4.inline-block(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke='currentColor')
-                                path(stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 8l4 4m0 0l-4 4m4-4H3')
+                                input#telefono.appearance-none.block.w-full.bg-grey-lighter.text-grey-darker.border.border-grey-lighter.rounded-lg.h-10.px-4(placeholder='7761009988' type='text' name='telefono')
+                        input(type='submit' class='hover:text-white hover:bg-indigo-500 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 py-2.5 hover:shadow-md').transition.duration-200.bg-indigo-100.w-full.rounded-3xl.text-sm.shadow-sm.font-semibold.text-center.inline-block
+                            
                     .p-5
                         .grid.grid-cols-3.gap-1
                             button.transition.duration-200.border.border-gray-200.text-gray-500.w-full.rounded-3xl.text-sm.shadow-sm.font-normal.text-center.inline-block(type='button' class='py-2.5 hover:shadow-md') MailUp

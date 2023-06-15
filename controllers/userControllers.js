@@ -1,15 +1,26 @@
 //En este archivo se relacionan todo lo relacionado con el registro de usuarios 
 
+import Usuario from "../models/Usuario.js"
+
+
 const inicio = (req, res) =>{
     res.render('layout/inicio', {
         pagina: 'Inicio'
     })
 }
 
-const register = (req, res) =>{
+const formularioRegister = (req, res) =>{
     res.render('auth/register', {
         
     })
+}
+
+const registrar = async (req, res) =>{
+    
+    const usuario = await Usuario.create(req.body)
+
+    // res.json(usuario)
+    //req.flash('success_msg', 'Usuario registrado con éxito')
 }
 
 const formularioLogin = (req, res) =>{
@@ -25,7 +36,8 @@ const forgotPassword = (req, res) =>{
 }
 export {
     inicio, 
-    register,
+    formularioRegister, 
+    registrar,
     formularioLogin, 
     forgotPassword
 }

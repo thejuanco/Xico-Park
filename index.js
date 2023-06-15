@@ -27,6 +27,7 @@ app.listen(port, ()=>{
 //Conectando a la base de datos 
 try {
     await db.authenticate(); 
+    db.sync(); 
     console.log('Se ha establecido conexion con la base de datos')
 } catch (error) {
     console.log(error)
