@@ -11,7 +11,7 @@ const inicio = (req, res) =>{
 
 const formularioRegister = (req, res) =>{
     res.render('auth/register', {
-        
+        pagina: 'Register'
     })
 }
 
