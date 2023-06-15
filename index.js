@@ -1,5 +1,6 @@
 import express, { urlencoded } from "express";
 import user from './routes/user.routes.js'
+import db from "./config/db.js";
 
 //Creando la app 
 const app = express()
@@ -23,3 +24,10 @@ app.listen(port, ()=>{
     console.log(`Se esta usando el puerto: ${port}`)
 })
 
+//Conectando a la base de datos 
+try {
+    await db.authenticate(); 
+    console.log('Se ha establecido conexion con la base de datos')
+} catch (error) {
+    console.log(error)
+}
