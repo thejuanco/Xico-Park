@@ -20,7 +20,7 @@ const registrar = async (req, res) =>{
     //Agregando las validaciones
     await check('nombre').notEmpty().withMessage('El nombre no puede ir vacio').run(req)
     await check('a_paterno').notEmpty().withMessage('El apellido no puede ir vacio').run(req)
-    await check('a_materno').notEmpty().withMessage('El apellido no puede ir vacio').run(req)
+    // await check('a_materno').notEmpty().withMessage('El apellido no puede ir vacio').run(req)
     await check('correo').notEmpty().isEmail().withMessage('El correo no es valido').run(req)
     await check('password').notEmpty().isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres').run(req)
     await check('placas').notEmpty().withMessage('Tienes que ingresar tus placas').run(req)
@@ -29,8 +29,20 @@ const registrar = async (req, res) =>{
     let resultado = validationResult(req)
 
     //Verificar que el resultado este vacio
-    
+    if (!resultado.isEmpty()) {
+        return res.render('auth/register', {
+            pagina: 'Register', 
+            errores: resultado.array(), 
+        })
+    }
+
     const usuario = await Usuario.create(req.body)
+
+    res.render ('templates/message', {
+        pagina: 'Cuenta creada correctamente', 
+        mensaje: `Hemos enviado un email de confirmacion, para el usuario: ${usuario.email}`, 
+        email: req.body.correo
+    })
 
     // res.json(usuario)
     //req.flash('success_msg', 'Usuario registrado con éxito')

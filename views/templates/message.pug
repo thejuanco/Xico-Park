@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/css/app.css")
+        title Registro
+    body 
+    
+        .relative.min-h-screen.flex.items-center.justify-center.bg-center.bg-gray-50.py-3.px-2.bg-gray-500.bg-no-repeat.bg-cover.relative.items-center(class='sm:px-6 lg:px-4' style='background-image: url(/img/turismo2.jpg);')
+            .p-2.mx-auto.rounded-3xl(class='xs:p-0 md:w-full md:max-w-md')
+                h1.font-bold.text-center.text-2xl.mb-5.text-white.space-x-4 Xico - Park
+                    div.bg-white.shadow.w-full.rounded-3xl.divide-y.divide-gray-200
+                        div.px-5.py-7
+                            label.font-semibold.text-sm.text-gray-600.pb-1.block Se ha registrado con exito 
+                                .flex-row.w-full.text-xs(class='flex items-center justify-center md:flex md:space-x-4')
+                                img.h-28.w-28(class='mx-auto my-4' src="img/confirmado.png", alt="Confirmado")
+                                p(class='space-y-5 py-3 mt-5')= mensaje 
+                                p(class='')= usuario
+        
+                .py-5
+                    .grid.grid-cols-2.gap-1
+                        .text-center.whitespace-nowrap(class='sm:text-left')
+                            a.transition.duration-200.mx-5.px-5.py-4.cursor-pointer.font-normal.text-sm.rounded-3xl.text-gray-500.ring-inset(href='/inicio' class='hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50')
+                                svg.w-4.h-4.inline-block.align-text-top(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke='currentColor')
+                                    path(stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 19l-7-7m0 0l7-7m-7 7h18')
+                                span.inline-block.ml-1 Regresar al inicio 

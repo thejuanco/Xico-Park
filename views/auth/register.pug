@@ -7,9 +7,15 @@ html(lang="en")
         title Registro
     body 
 
-        .relative.min-h-screen.flex.items-center.justify-center.bg-center.bg-gray-50.py-12.px-4.bg-gray-500.bg-no-repeat.bg-cover.relative.items-center(class='sm:px-6 lg:px-8' style='background-image: url(/img/turismo2.jpg);')
-            .p-10.mx-auto.rounded-3xl(class='xs:p-0 md:w-full md:max-w-md')
+        .relative.min-h-screen.flex.items-center.justify-center.bg-center.bg-gray-50.py-3.px-2.bg-gray-500.bg-no-repeat.bg-cover.relative.items-center(class='sm:px-6 lg:px-4' style='background-image: url(/img/turismo2.jpg);')
+            .p-2.mx-auto.rounded-3xl(class='xs:p-0 md:w-full md:max-w-md')
                 h1.font-bold.text-center.text-2xl.mb-5.text-white Xico - Park 
+
+                if errores 
+                    div.relative.py-3.pl-4.pr-10.leading-normal.text-red-700.bg-red-100.rounded-lg(role='alert')
+                        each error in errores 
+                            p=error.msg
+
                 div.bg-white.shadow.w-full.rounded-3xl.divide-y.divide-gray-200
                     form.px-5.py-7(method='POST' action='/register' noValidate)
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Nombre
@@ -51,3 +57,6 @@ html(lang="en")
                                 svg.w-4.h-4.inline-block.align-text-top(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke='currentColor')
                                     path(stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M10 19l-7-7m0 0l7-7m-7 7h18')
                                 span.inline-block.ml-1 Regresar al inicio 
+        
+block script 
+    script(src="https://services.cognitoforms.com/s/VSqLsE7970G2a-Ir3-x6cg") 
