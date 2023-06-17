@@ -98,6 +98,12 @@ const resetPassword = async (req, res) =>{
                 errores: resultado.array()
             })
         }
+
+    res.render('templates/recoverPassword', {
+        pagina: 'Recupera tu contraseña',
+        mensaje: `Se ha enviado un correo al usuario, para recuperar su contraseña`,
+        correo: req.body.correo
+    })
 }
 
 export {
