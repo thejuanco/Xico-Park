@@ -74,6 +74,7 @@ const registrar = async (req, res) =>{
     })
 
     
+    
 
 }
 
