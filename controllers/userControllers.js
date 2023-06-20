@@ -1,5 +1,6 @@
 //En este archivo se relacionan todo lo relacionado con el registro de usuarios 
 import { check, validationResult } from "express-validator"
+import { generarId, generarJWT } from "../helpers/token.js"
 import Usuario from "../models/Usuario.js"
 
 
@@ -29,22 +30,51 @@ const registrar = async (req, res) =>{
 
     //Verificar que el resultado este vacio
     if (!resultado.isEmpty()) {
+        //Si el usuario no esta registrado, no avanza del registro 
         return res.render('auth/register', {
-            pagina: 'Register', 
+            pagina: 'Crear Cuenta', 
             errores: resultado.array(), 
         })
     }
 
-    const usuario = await Usuario.create(req.body)
+    //Extrayendo los datos del usuario 
+    const {nombre, a_paterno, a_materno, correo, password, placas, telefono} = req.body
 
+    //Verificar si el usuario existe, por su correo 
+    const existeUsuario = await Usuario.findOne({ where: { correo }})
+    if (existeUsuario){
+            return res.render('auth/register', {
+            pagina: 'Crear Cuenta', 
+            errores: [{msg: 'EL usuario ya esta registrado'}], 
+            usuario: {
+                nombre: req.body.nombre, 
+                correo: req.body.correo
+            }
+        })
+    }
+
+    //almacenar un usuario 
+    const usuario = await Usuario.create({
+        nombre, 
+        a_paterno, 
+        a_materno, 
+        correo,
+        password, 
+        placas, 
+        telefono,
+    //Generando el token unico 
+        token: generarId()
+    })
+
+    //Se envia el mensaje de confirmacion 
     res.render ('templates/message', {
         pagina: 'Cuenta creada correctamente', 
         mensaje: `Hemos enviado un email de confirmacion, para el usuario: `, 
         email: req.body.correo
     })
 
-    // res.json(usuario)
-    //req.flash('success_msg', 'Usuario registrado con éxito')
+    
+
 }
 
 const formularioLogin = (req, res) =>{
@@ -78,7 +108,7 @@ const autenticar = async (req, res) =>{
         })
     }
 
-    
+
 }
 
 const forgotPassword = (req, res) =>{
