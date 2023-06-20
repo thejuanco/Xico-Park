@@ -617,9 +617,6 @@ video {
 .mr-12 {
   margin-right: 3rem;
 }
-.mr-2 {
-  margin-right: 0.5rem;
-}
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -917,6 +914,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity));
 }
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+}
 .bg-slate-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
@@ -1142,6 +1143,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
 .text-red-700 {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
@@ -1277,6 +1282,18 @@ video {
 }
 .focus\:ring-opacity-50:focus {
   --tw-ring-opacity: 0.5;
+}
+.group:invalid .group-invalid\:pointer-events-none {
+  pointer-events: none;
+}
+.group:invalid .group-invalid\:opacity-30 {
+  opacity: 0.3;
+}
+.peer:not(:-moz-placeholder-shown):not(:focus):invalid ~ .peer-\[\&\:not\(\:-moz-placeholder-shown\)\:not\(\:focus\)\:invalid\]\:block {
+  display: block;
+}
+.peer:not(:placeholder-shown):not(:focus):invalid ~ .peer-\[\&\:not\(\:placeholder-shown\)\:not\(\:focus\)\:invalid\]\:block {
+  display: block;
 }
 @media (prefers-color-scheme: dark) {
 

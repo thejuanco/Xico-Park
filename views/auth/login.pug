@@ -20,7 +20,7 @@ html(lang="en")
                 form.bg-white.shadow.w-full.rounded-3xl.divide-y.divide-gray-200(method='POST' action='/login')
                     .px-5.py-7
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Correo Electronico 
-                        input#correo.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='text' placeholder='correo@gmail.com')
+                        input#correo.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(class='group-invalid:pointer-events-none group-invalid:opacity-30' type='text' placeholder='correo@gmail.com')
                         label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Contraseña
                         input#password.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='password' placeholder='********')
                         input(type='submit' value='Inicia Sesion' class='hover:text-white hover:bg-indigo-500 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 py-2.5 hover:shadow-md').transition.duration-200.bg-indigo-100.w-full.rounded-3xl.text-sm.shadow-sm.font-semibold.text-center.inline-block
