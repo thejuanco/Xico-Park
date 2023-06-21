@@ -1,6 +1,7 @@
 //En este archivo se relacionan todo lo relacionado con el registro de usuarios 
 import { check, validationResult } from "express-validator"
 import { generarId, generarJWT } from "../helpers/token.js"
+import { emailRegistro, emailOlvidePassword } from "../helpers/email.js"
 import Usuario from "../models/Usuario.js"
 
 
@@ -73,9 +74,19 @@ const registrar = async (req, res) =>{
         email: req.body.correo
     })
 
+    //Enviar email de confirmacion 
+    emailRegistro({
+        nombre: usuario.nombre, 
+        correo: usuario.correo, 
+        token: usuario.token
+    }) 
+    //mostrar mensaje de confirmación para el usuario 
+    //utilizamos el res.render para renderizar la pagina que va a mostrar 
+    res.render ('templates/message', {
+        pagina: 'Cuenta creada correctamente', 
+        mensaje: 'Hemos enviado un email de confirmacion '
+    })
     
-    
-
 }
 
 const formularioLogin = (req, res) =>{
@@ -93,6 +104,7 @@ const autenticar = async (req, res) =>{
 
     //Verificar que el resultado este vacio
     if (!resultado.isEmpty()) {
+    //Si el resutado esta vacio, no avanza del login
         return res.render('auth/login', {
             pagina: 'Login', 
             errores: resultado.array(), 
@@ -109,6 +121,7 @@ const autenticar = async (req, res) =>{
         })
     }
 
+    
 
 }
 
