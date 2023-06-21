@@ -89,6 +89,34 @@ const registrar = async (req, res) =>{
     
 }
 
+//Ruta para confirmar al usuario 
+const confirmar = async (req, res) => {
+    const {token } = req.params;  
+    console.log(token)
+
+    //verificar si el token es valido o no 
+    const usuario = await Usuario.findOne ({where: {token}})
+    console.log(usuario)
+
+    if(!usuario){
+        return res.render('auth/confirmar-cuenta', {
+            pagina: 'Error al confirmar tu cuenta', 
+            mensaje: 'Hubo un error al confirmar tu cuenta, intenta de nuevo ', 
+            error: true
+        })
+    }
+
+    //confirmar la cuenta 
+    usuario.token = null
+    usuario.confirmado = true 
+    await usuario.save(); 
+    return res.render('auth/confirmar-cuenta', {
+        pagina: 'Cuenta confirmada correctamente', 
+        mensaje: 'La cuenta se confirmo correctamente'
+    })
+}
+
+//Formulario de login 
 const formularioLogin = (req, res) =>{
     res.render('auth/login', {
         pagina: 'Login'
@@ -111,6 +139,7 @@ const autenticar = async (req, res) =>{
         })
     }
 
+    //Extraer al usuario del body 
     const {correo, password} = req.body
     //comprobar si el usuario existe 
     const usuario = await Usuario.findOne({where: {correo}})
@@ -125,6 +154,7 @@ const autenticar = async (req, res) =>{
 
 }
 
+//Ruta para recuperar la contraseña 
 const forgotPassword = (req, res) =>{
     res.render('auth/forgotPassword', {
         pagina: 'Forgot Password'
@@ -133,10 +163,12 @@ const forgotPassword = (req, res) =>{
 
 const resetPassword = async (req, res) =>{
 
+    //Validando el correo 
     await check('correo').isEmail().withMessage('El correo no es valido.').run(req)
 
     let resultado = validationResult(req)
 
+    //Si el resultado esta vacio no avanza 
     if (!resultado.isEmpty()) {
             return res.render('auth/forgotPassword', {
                 pagina: 'Forgot Password', 
@@ -144,6 +176,7 @@ const resetPassword = async (req, res) =>{
             })
         }
 
+    //Mensaja para el restablecimiento de cuenta 
     res.render('templates/recoverPassword', {
         pagina: 'Recupera tu contraseña',
         mensaje: `Se ha enviado un correo al usuario, para recuperar su contraseña`,
@@ -154,6 +187,7 @@ const resetPassword = async (req, res) =>{
 export {
     inicio, 
     formularioRegister, 
+    confirmar,
     registrar,
     formularioLogin, 
     autenticar,
