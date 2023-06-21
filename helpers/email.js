@@ -49,7 +49,7 @@ const emailOlvidePassword = async (datos) =>{
       text: "Bienvenido a Xico-Park, por favor restablece tu cuenta", 
       html: `<p>Hola, ${nombre} restablece tu cuenta </p>
       <p>sigue el siguiente enlace para generar una nueva constraseña:  
-      <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 4000}/auth/forgotPassword/${token}">Restablecer cuenta</a> </p>
+      <a href="${process.env.BACKEND_URL}:${process.env.PORT ?? 4000}/forgotPassword/${token}">Restablecer cuenta</a> </p>
       `
     })
 

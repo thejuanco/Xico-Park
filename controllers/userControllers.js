@@ -1,4 +1,5 @@
 //En este archivo se relacionan todo lo relacionado con el registro de usuarios 
+import bcrypt from 'bcrypt';
 import { check, validationResult } from "express-validator"
 import { generarId, generarJWT } from "../helpers/token.js"
 import { emailRegistro, emailOlvidePassword } from "../helpers/email.js"
@@ -176,11 +177,98 @@ const resetPassword = async (req, res) =>{
             })
         }
 
-    //Mensaja para el restablecimiento de cuenta 
+    //Mensaje para el restablecimiento de cuenta 
     res.render('templates/recoverPassword', {
         pagina: 'Recupera tu contraseña',
         mensaje: `Se ha enviado un correo al usuario, para recuperar su contraseña`,
         correo: req.body.correo
+    })
+
+    //Buscar el usuario 
+    //primero extraemos el email del formulario 
+    const { correo  } = req.body 
+    //despues creamos una variable usuario donde lo buscamos por un email 
+    const usuario = await Usuario.findOne({where: {correo} })
+    //en caso de no existir el usuario se hara lo siguiente 
+    if(!usuario){
+        return res.render('auth/forgotPassword', {
+            pagina: 'Recupera tu acceso a Xico-Park ',
+            //csrfToken: req.csrfToken(), 
+            errores: [{msg: 'El email no pertenece a ningun usuario registrado'}]
+        })
+    }
+    //Generar un token y eviar un email 
+    //primero generemos un id con la funcion ya hecha anteriormente 
+    usuario.token = generarId(); 
+    //guarda el usuario en la base de datos 
+    await usuario.save(); 
+    //Enviar un email al usuario 
+    emailOlvidePassword({
+        correo: usuario.correo, 
+        nombre: usuario.nombre, 
+        token: usuario.token 
+    })
+
+    res.render('auth/reset-password', {
+        pagina: 'Restablece tu contraseña', 
+    })
+    
+}
+
+const comprobarToken = async (req, res, next) => {
+    const {token} = req.params
+
+    const usuario = await Usuario.findOne({where: {token}})
+    if (!usuario){
+        return res.render('auth/confirmar-cuenta', {
+        pagina: 'Cuenta restablece tu contraseña', 
+        mensaje: 'Hubo un error al confirmar la cuenta ', 
+        error: true
+        })
+    }
+
+    next(); 
+    
+    //Mostrando Formulario para modificar el password 
+    res.render('auth/reset-password', {
+        pagina: 'restablece tu constraseña', 
+        //en este caso para que no nos apararesca el error de token invalido 
+        //mandamos a llamar a la funcion del token 
+        //csrfToken: req.csrfToken()
+    })
+}
+
+const nuevoPassword = async (req, res) => {
+    
+    //validar el nuevo password 
+    await check('password').isLength({min: 6}).withMessage('La contraseña debe tener minimo 6 caracteres').run(req)
+    let resultado = validationResult(req)
+
+    //verificacion que el resultado este vacio 
+    if (!resultado.isEmpty()){
+        //en caso de estar vacio nos muestra los errores 
+        return res.render('auth/reset-password', {
+            pagina: 'Restablece tu constraseña', 
+            //csrfToken: req.csrfToken(), 
+            errores: resultado.array()
+        })
+    }
+
+    const {token} = req.params
+    const {password} = req.body
+    //Identificar quien hace el cambio 
+    const usuario = await Usuario.findOne({where: {token}})
+
+    //Hashear el token
+    const salt = await bcrypt.genSalt(10); 
+    usuario.password = await bcrypt.hash( password, salt ); 
+    usuario.token = null; 
+
+    await usuario.save(); 
+
+    res.render('auth/confirmar-cuenta', {
+        pagina: 'Password Reestablecido', 
+        mensaje: 'El contraseña se cambio correctamente'
     })
 }
 
@@ -192,5 +280,7 @@ export {
     formularioLogin, 
     autenticar,
     forgotPassword, 
-    resetPassword
+    resetPassword,
+    comprobarToken, 
+    nuevoPassword,
 }
