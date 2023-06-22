@@ -151,8 +151,31 @@ const autenticar = async (req, res) =>{
         })
     }
 
-    
+    //Si el usuario no esta confirmado 
+    if(!usuario.confirmado){
+    //No nos deja avanzar desde el formulario
+        return res.render('auth/login', {
+            pagina: 'Iniciar Sesion', 
+            errores: [{msg: 'El usuario no esta confirmado '}]
+        })
+    }
 
+    //Verificar la contraseña 
+    if(!usuario.verificarPassword(password)){
+        return res.render('auth/login', {
+            pagina: 'Iniciar Sesion', 
+            errores: [{msg: 'La contraseña no es correcta '}]
+        });
+    }
+
+    //Autenticar el usuario mediante un JWT 
+    const token = generarJWT({id: usuario.idUsuario, nombre: usuario.nombre, correo: usuario.correo})
+
+    //Almacenar al usuario en una cokie 
+    return res.cokie('_token', token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
+    }).redirect('/admin')
 }
 
 //Ruta para recuperar la contraseña 
