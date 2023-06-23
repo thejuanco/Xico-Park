@@ -13,16 +13,18 @@ html(lang="en")
                 h1.font-bold.text-center.text-2xl.mb-5 Xico - Park 
 
                 if errores 
-                    div.relative.py-3.pl-4.pr-10.leading-normal.text-red-700.bg-red-100.rounded-lg(role='alert')
+                    div.relative.py-3.pl-4.pr-10.leading-normal.text-red-700.bg-red-100.rounded-lg
                         each error in errores 
                             p=error.msg
 
                 form.bg-white.shadow.w-full.rounded-3xl.divide-y.divide-gray-200(method='POST' action='/login')
                     .px-5.py-7
-                        label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Correo Electronico 
-                        input#correo.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(class='group-invalid:pointer-events-none group-invalid:opacity-30' type='text' placeholder='correo@gmail.com')
-                        label.font-semibold.text-sm.text-gray-600.pb-1.block Tu Contraseña
-                        input#password.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='password' placeholder='********')
+                        div
+                            label.font-semibold.text-sm.text-gray-600.pb-1.block(for='correo') Tu Correo Electronico 
+                            input#correo.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='email' placeholder='correo@gmail.com' )
+                        div
+                            label.font-semibold.text-sm.text-gray-600.pb-1.block(for='password') Tu Contraseña
+                            input#password.border.rounded-lg.px-3.py-2.mt-1.mb-5.text-sm.w-full(type='password' placeholder='********' )
                         input(type='submit' value='Inicia Sesion' class='hover:text-white hover:bg-indigo-500 focus:bg-blue-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 py-2.5 hover:shadow-md').transition.duration-200.bg-indigo-100.w-full.rounded-3xl.text-sm.shadow-sm.font-semibold.text-center.inline-block
                         
                     .p-5

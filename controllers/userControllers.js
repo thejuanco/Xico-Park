@@ -126,56 +126,64 @@ const formularioLogin = (req, res) =>{
 
 const autenticar = async (req, res) =>{
     //validar al usuario 
-    await check('correo').isEmail().withMessage('El correo no es valido').run(req)
+    await check('correo').isEmail().withMessage('Eso no parece un emal').run(req)
     await check('password').notEmpty().withMessage('La contraseña es obligatoria').run(req)
 
-    let resultado = validationResult(req) 
+    let resultado = validationResult(req)
 
-    //Verificar que el resultado este vacio
-    if (!resultado.isEmpty()) {
-    //Si el resutado esta vacio, no avanza del login
+    //verificacion que el resultado este vacio 
+    if (!resultado.isEmpty()){
+        //en caso de estar vacio nos muestra los errores 
         return res.render('auth/login', {
-            pagina: 'Login', 
-            errores: resultado.array(), 
+            pagina: 'Iniciar Sesion', 
+            //csrfToken: req.csrfToken(), 
+            errores: resultado.array()
         })
     }
-
-    //Extraer al usuario del body 
+    console.log('resultado')
+    //Primero extraemos el email del usuario 
     const {correo, password} = req.body
     //comprobar si el usuario existe 
     const usuario = await Usuario.findOne({where: {correo}})
     if (!usuario){
+        //en caso de estar vacio nos muestra los errores 
         return res.render('auth/login', {
             pagina: 'Iniciar Sesion', 
+            //csrfToken: req.csrfToken(), 
+            //en lugar de poner el .array ponemos el mensaje en un arreglo
             errores: [{msg: 'El usuario no existe '}]
         })
     }
-
-    //Si el usuario no esta confirmado 
-    if(!usuario.confirmado){
-    //No nos deja avanzar desde el formulario
+    //El usuario no esta confirmado 
+    if (!usuario.confirmado){
+        //en caso de estar vacio nos muestra los errores 
         return res.render('auth/login', {
             pagina: 'Iniciar Sesion', 
-            errores: [{msg: 'El usuario no esta confirmado '}]
+            //csrfToken: req.csrfToken(), 
+            //en lugar de poner el .array ponemos el mensaje en un arreglo
+            errores: [{msg: 'El usuario no esta confirmado'}]
         })
     }
-
-    //Verificar la contraseña 
+    //revisar el password 
     if(!usuario.verificarPassword(password)){
         return res.render('auth/login', {
-            pagina: 'Iniciar Sesion', 
-            errores: [{msg: 'La contraseña no es correcta '}]
-        });
+        pagina: 'Iniciar sesion', 
+        //csrfToken: req.csrfToken(), 
+        //en lugar de poner el .array ponemos el mensaje en un arreglo
+        errores: [{msg: 'El password es incorrecto'}]
+        })
     }
+    //autenticar al usuario, creando un json web token 
+    //El metodo que nos crea el jwt es sing() 
+    const token = generarJWT({id: usuario.idUsuario, usuario: usuario.idUsuario ,nombre: usuario.nombre})
+       console.log(token)
 
-    //Autenticar el usuario mediante un JWT 
-    const token = generarJWT({id: usuario.idUsuario, nombre: usuario.nombre, correo: usuario.correo})
-
-    //Almacenar al usuario en una cokie 
-    return res.cokie('_token', token, {
-        httpOnly: true,
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365)
+    //almacenar en un cookie 
+    return res.cookie('_token', token, {
+        httpOnly: true
+        //secure: true 
     }).redirect('/admin')
+    
 }
 
 //Ruta para recuperar la contraseña 
